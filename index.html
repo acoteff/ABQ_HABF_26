@@ -31,7 +31,7 @@
     color: var(--text);
     font: 18px/1.7 Georgia, "Times New Roman", serif;
   }
-  img { max-width: 100%; height: auto; display: block; }
+  img, video { max-width: 100%; display: block; }
   a { color: var(--accent); }
 
   /* Hero */
@@ -56,49 +56,61 @@
   .hero h1 { margin: 0 0 6px; font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.1; }
   .hero p { margin: 0; font-family: system-ui, sans-serif; font-size: .95rem; opacity: .9; }
 
-  main { max-width: var(--max); margin: 0 auto; padding: 0 20px 60px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
+  .intro { max-width: var(--max); margin: 32px auto; font-size: 1.1rem; }
 
-  /* Jump links */
   nav.jump {
-    font-family: system-ui, sans-serif;
-    font-size: .9rem;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--rule);
-    display: flex; flex-wrap: wrap; gap: 6px 16px;
+    max-width: var(--max); margin: 0 auto;
+    font-family: system-ui, sans-serif; font-size: .9rem;
+    padding: 18px 0; border-bottom: 1px solid var(--rule);
+    display: flex; gap: 16px;
   }
 
-  .intro { margin: 32px 0; font-size: 1.1rem; }
-
-  /* Entries */
-  section.entry { padding-top: 40px; }
-  section.entry h2 { margin: 0; font-size: 1.7rem; line-height: 1.25; }
-  .meta {
-    margin: 4px 0 18px;
-    font-family: system-ui, sans-serif;
-    font-size: .85rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .06em;
-  }
-  figure { margin: 24px 0; }
-  figure img { border-radius: 6px; width: 100%; }
-  figcaption {
-    margin-top: 8px;
-    font-family: system-ui, sans-serif;
-    font-size: .85rem;
-    color: var(--muted);
-  }
+  h2 { margin: 48px 0 6px; font-size: 1.7rem; line-height: 1.25; }
+  .count { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--muted); margin: 0 0 18px; }
 
   /* Photo grid */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 8px;
-    margin: 24px 0;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 6px;
   }
-  .grid img { aspect-ratio: 1; object-fit: cover; border-radius: 4px; width: 100%; }
+  .grid button {
+    padding: 0; border: 0; background: var(--rule);
+    cursor: zoom-in; border-radius: 4px; overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .grid img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .2s;
+  }
+  .grid button:hover img, .grid button:focus-visible img { transform: scale(1.04); }
 
-  hr { border: 0; border-top: 1px solid var(--rule); margin: 48px 0 0; }
+  /* Videos */
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .videos video { width: 100%; border-radius: 6px; background: #000; }
+
+  /* Lightbox */
+  #lightbox {
+    position: fixed; inset: 0; z-index: 10;
+    background: rgba(0,0,0,.92);
+    display: none; align-items: center; justify-content: center;
+  }
+  #lightbox.open { display: flex; }
+  #lightbox img { max-width: 94vw; max-height: 90vh; object-fit: contain; }
+  #lightbox button {
+    position: absolute; background: none; border: 0; color: #fff;
+    font: 2.2rem/1 system-ui, sans-serif; cursor: pointer; padding: 16px;
+    opacity: .8;
+  }
+  #lightbox button:hover { opacity: 1; }
+  #lb-close { top: 0; right: 0; }
+  #lb-prev  { left: 0; top: 50%; transform: translateY(-50%); }
+  #lb-next  { right: 0; top: 50%; transform: translateY(-50%); }
 
   footer {
     max-width: var(--max); margin: 0 auto; padding: 0 20px 48px;
@@ -111,76 +123,106 @@
 <header class="hero">
   <div class="hero-inner">
     <h1>Albuquerque Hot Air Balloon Fiesta 2026</h1>
-    <p>October 2&ndash;4, 2026</p>
+    <p>October 2026</p>
   </div>
 </header>
 
-<main>
+<nav class="jump" aria-label="Jump to a section">
+  <a href="#photos">Photos</a>
+  <a href="#videos" id="videos-link">Videos</a>
+</nav>
 
-  <nav class="jump" aria-label="Jump to a day">
-    <a href="#day1">Day 1</a>
-    <a href="#day2">Day 2</a>
-    <a href="#day3">Day 3</a>
-    <a href="#gallery">More photos</a>
-  </nav>
+<main>
 
   <p class="intro">
     A short paragraph about the trip: where you went, who came along, and what made it memorable.
     Replace this text with your own.
   </p>
 
-  <!-- ============ DAY 1 ============ -->
-  <section class="entry" id="day1">
-    <h2>Arrival and first impressions</h2>
-    <div class="meta">Day 1 &middot; Location</div>
-    <p>Write about the day here. Add as many paragraphs as you like.</p>
-    <figure>
-      <img src="images/day1-01.jpg" alt="Describe the photo" loading="lazy">
-      <figcaption>Caption for the photo.</figcaption>
-    </figure>
-    <p>More writing can go between photos.</p>
-  </section>
+  <h2 id="photos">Photos</h2>
+  <p class="count" id="photo-count"></p>
+  <div class="grid" id="photo-grid"></div>
 
-  <hr>
-
-  <!-- ============ DAY 2 ============ -->
-  <section class="entry" id="day2">
-    <h2>Title for day two</h2>
-    <div class="meta">Day 2 &middot; Location</div>
-    <p>Write about the day here.</p>
-    <figure>
-      <img src="images/day2-01.jpg" alt="Describe the photo" loading="lazy">
-      <figcaption>Caption for the photo.</figcaption>
-    </figure>
-  </section>
-
-  <hr>
-
-  <!-- ============ DAY 3 ============ -->
-  <section class="entry" id="day3">
-    <h2>Title for day three</h2>
-    <div class="meta">Day 3 &middot; Location</div>
-    <p>Write about the day here.</p>
-  </section>
-
-  <hr>
-
-  <!-- ============ GALLERY ============ -->
-  <section class="entry" id="gallery">
-    <h2>More photos</h2>
-    <div class="grid">
-      <img src="videos/118.MP4" alt="Describe the photo" loading="lazy">
-      <img src="images/gallery-02.jpg" alt="Describe the photo" loading="lazy">
-      <img src="images/gallery-03.jpg" alt="Describe the photo" loading="lazy">
-      <img src="images/gallery-04.jpg" alt="Describe the photo" loading="lazy">
-    </div>
-  </section>
+  <h2 id="videos">Videos</h2>
+  <div class="videos" id="video-grid"></div>
 
 </main>
 
 <footer>
   Thanks for following along.
 </footer>
+
+<div id="lightbox" role="dialog" aria-label="Photo viewer">
+  <button id="lb-close" aria-label="Close">&times;</button>
+  <button id="lb-prev" aria-label="Previous photo">&#8249;</button>
+  <img id="lb-img" alt="">
+  <button id="lb-next" aria-label="Next photo">&#8250;</button>
+</div>
+
+<!-- media.js defines PHOTOS and VIDEOS (lists of file names). See instructions to generate it. -->
+<script src="media.js"></script>
+<script>
+  const photos = (typeof PHOTOS !== "undefined") ? PHOTOS : [];
+  const videos = (typeof VIDEOS !== "undefined") ? VIDEOS : [];
+
+  // ---- Photo grid ----
+  const grid = document.getElementById("photo-grid");
+  document.getElementById("photo-count").textContent =
+    photos.length ? photos.length + " photos. Tap any photo to enlarge." : "";
+
+  photos.forEach((name, i) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Open photo " + (i + 1));
+    const img = document.createElement("img");
+    img.src = "images/" + name;
+    img.alt = "Trip photo " + (i + 1);
+    img.loading = "lazy";
+    img.decoding = "async";
+    btn.appendChild(img);
+    btn.addEventListener("click", () => openAt(i));
+    grid.appendChild(btn);
+  });
+
+  // ---- Videos ----
+  const vgrid = document.getElementById("video-grid");
+  if (!videos.length) {
+    document.getElementById("videos").remove();
+    vgrid.remove();
+    document.getElementById("videos-link").remove();
+  }
+  videos.forEach(name => {
+    const v = document.createElement("video");
+    v.controls = true;
+    v.preload = "metadata";
+    v.playsInline = true;
+    v.src = "videos/" + name;
+    vgrid.appendChild(v);
+  });
+
+  // ---- Lightbox ----
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  let current = 0;
+
+  function show(i) {
+    current = (i + photos.length) % photos.length;
+    lbImg.src = "images/" + photos[current];
+  }
+  function openAt(i) { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
+  function closeLb() { lb.classList.remove("open"); lbImg.src = ""; document.body.style.overflow = ""; }
+
+  document.getElementById("lb-close").onclick = closeLb;
+  document.getElementById("lb-prev").onclick = () => show(current - 1);
+  document.getElementById("lb-next").onclick = () => show(current + 1);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowLeft") show(current - 1);
+    if (e.key === "ArrowRight") show(current + 1);
+  });
+</script>
 
 </body>
 </html>
