@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Molly & Aaron Go To New Mexico</title>
+<meta name="description" content="A photo journal of our trip to Albuquerque Hot Air Balloon Fiesta.">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --text: #2b2a28;
+    --muted: #6f6b66;
+    --accent: #b5532b;
+    --rule: #e4dfd8;
+    --max: 720px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1b19;
+      --text: #ece8e2;
+      --muted: #a09b94;
+      --accent: #e08a5f;
+      --rule: #34322f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 18px/1.7 Georgia, "Times New Roman", serif;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--accent); }
+
+  /* Hero */
+  header.hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    background: #444 url("/Users/acoteff/Desktop/ABQ_PHOTOS_WORKING/270.jpeg") center / cover no-repeat;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.05) 70%);
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    width: 100%; max-width: var(--max);
+    margin: 0 auto; padding: 0 20px 40px;
+  }
+  .hero h1 { margin: 0 0 6px; font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.1; }
+  .hero p { margin: 0; font-family: system-ui, sans-serif; font-size: .95rem; opacity: .9; }
+
+  main { max-width: var(--max); margin: 0 auto; padding: 0 20px 60px; }
+
+  /* Jump links */
+  nav.jump {
+    font-family: system-ui, sans-serif;
+    font-size: .9rem;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap; gap: 6px 16px;
+  }
+
+  .intro { margin: 32px 0; font-size: 1.1rem; }
+
+  /* Entries */
+  section.entry { padding-top: 40px; }
+  section.entry h2 { margin: 0; font-size: 1.7rem; line-height: 1.25; }
+  .meta {
+    margin: 4px 0 18px;
+    font-family: system-ui, sans-serif;
+    font-size: .85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  figure { margin: 24px 0; }
+  figure img { border-radius: 6px; width: 100%; }
+  figcaption {
+    margin-top: 8px;
+    font-family: system-ui, sans-serif;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  /* Photo grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin: 24px 0;
+  }
+  .grid img { aspect-ratio: 1; object-fit: cover; border-radius: 4px; width: 100%; }
+
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 48px 0 0; }
+
+  footer {
+    max-width: var(--max); margin: 0 auto; padding: 0 20px 48px;
+    font-family: system-ui, sans-serif; font-size: .85rem; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Albuquerque Hot Air Balloon Fiesta 2026</h1>
+    <p>October 2&ndash;2, 2026</p>
+  </div>
+</header>
+
+<main>
+
+  <nav class="jump" aria-label="Jump to a day">
+    <a href="#day1">Day 1</a>
+    <a href="#day2">Day 2</a>
+    <a href="#day3">Day 3</a>
+    <a href="#gallery">More photos</a>
+  </nav>
+
+  <p class="intro">
+    A short paragraph about the trip: where you went, who came along, and what made it memorable.
+    Replace this text with your own.
+  </p>
+
+  <!-- ============ DAY 1 ============ -->
+  <section class="entry" id="day1">
+    <h2>Arrival and first impressions</h2>
+    <div class="meta">Day 1 &middot; Location</div>
+    <p>Write about the day here. Add as many paragraphs as you like.</p>
+    <figure>
+      <img src="images/day1-01.jpg" alt="Describe the photo" loading="lazy">
+      <figcaption>Caption for the photo.</figcaption>
+    </figure>
+    <p>More writing can go between photos.</p>
+  </section>
+
+  <hr>
+
+  <!-- ============ DAY 2 ============ -->
+  <section class="entry" id="day2">
+    <h2>Title for day two</h2>
+    <div class="meta">Day 2 &middot; Location</div>
+    <p>Write about the day here.</p>
+    <figure>
+      <img src="images/day2-01.jpg" alt="Describe the photo" loading="lazy">
+      <figcaption>Caption for the photo.</figcaption>
+    </figure>
+  </section>
+
+  <hr>
+
+  <!-- ============ DAY 3 ============ -->
+  <section class="entry" id="day3">
+    <h2>Title for day three</h2>
+    <div class="meta">Day 3 &middot; Location</div>
+    <p>Write about the day here.</p>
+  </section>
+
+  <hr>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="entry" id="gallery">
+    <h2>More photos</h2>
+    <div class="grid">
+      <img src="/Users/acoteff/Desktop/ABQ_PHOTOS_WORKING/118.MP4" alt="Describe the photo" loading="lazy">
+      <img src="images/gallery-02.jpg" alt="Describe the photo" loading="lazy">
+      <img src="images/gallery-03.jpg" alt="Describe the photo" loading="lazy">
+      <img src="images/gallery-04.jpg" alt="Describe the photo" loading="lazy">
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Thanks for following along.
+</footer>
+
+</body>
+</html>
