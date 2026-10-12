@@ -69,7 +69,6 @@ const PHOTOS = [
   "77.jpeg",
   "78.jpeg",
   "79.jpeg",
-  "80.jpeg",
   "81.jpeg",
   "82.jpeg",
   "83.jpeg",
